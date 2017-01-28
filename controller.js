@@ -23,11 +23,23 @@ module.exports = function(app) {
         res.send('test');
     });
 
+    // /items?id=3
     app.get('/items', function(req, res) {
         //get data from mongodb and pass to view
-        Item.find({}, function(err, data) {
-            if (err) throw err;
-            res.json(data);
-        });
+        if(req.query.id != null){
+            var id = req.query.id;
+            Item.findById(id, function(err, item){
+                if (err) throw err;
+                res.json(item);
+                console.log('\nitem: ' + item);
+            });
+        }
+        else{
+            Item.find({}, function(err, items) {
+                if (err) throw err;
+                res.json(items);
+                console.log('\nitem' + items);
+            });
+        }
     });
 }
