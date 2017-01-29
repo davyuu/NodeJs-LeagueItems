@@ -1,12 +1,12 @@
 var express = require('express');
-var todoController = require('./controller.js');
+var controller = require('./controller.js');
 
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
 
 //fire controllers
-todoController(app);
+controller(app);
 
 //listen to port
 app.listen(app.get('port'), function(){
